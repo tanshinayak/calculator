@@ -6,13 +6,12 @@ let numbers = document.querySelectorAll(".numbers");
  let deleteop=document.getElementById("delete");
  let display=document.getElementById("display");
  let operation=undefined;
- let num;
+ let num;let result=0;
  function calculate()
- {let result=0;
+ {
    let num2=Number(resultscreen.innerHTML);
    switch(operation){
      case "+":result=num+num2;
-     alert(resultscreen.innerHTML); 
      break;
      case "-": result=num-num2;
      break;
@@ -39,14 +38,27 @@ let numbers = document.querySelectorAll(".numbers");
    let num=Number(resultscreen.innerHTML);
    resultscreen.innerHTML=Math.floor(num/10);
  };
+ function equaloperation()
+ {
+   calculate();
+   display.innerHTML="";
+   resultscreen.innerHTML=result;
+ }
  numbers.forEach((num)=>{num.addEventListener("click",
  function(){resultscreen.innerHTML=resultscreen.innerHTML+Number(num.innerHTML)})});
  operators.forEach((op)=>{op.addEventListener("click",
- function(){num=Number(resultscreen.innerHTML);
+ function(){calculate();
+   num=Number(resultscreen.innerHTML);
 display.innerHTML=resultscreen.innerHTML+op.innerHTML;
 resultscreen.innerHTML="";
 operation=op.innerHTML;
-//calculate();
+if(operation=="1/x")
+{
+  calculate();
+}
+else if(resultscreen.innerHTML!="")
+{calculate();}
 })})
  clear.addEventListener("click",clearoperation);
 deleteop.addEventListener("click",deleteoperation);
+equalsign.addEventListener("click",equaloperation);
